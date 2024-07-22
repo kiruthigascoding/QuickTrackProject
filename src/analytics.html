@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeeklyChart</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <div calss = "main">
+
+        <div class="nav">
+            <nav>
+               <div class="logo">
+                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7hbeWe8cNEcEzyrBtyMdT5PnKUVWzd2VGQ&s" alt="logo">
+                 <div class="title">
+                  <h1>QuickTrack</h1>
+                 </div>
+               </div>
+               <ul>
+                   <li class ="active">
+                        <a href="/src/index.html">Track</a>
+                   </li>
+                   <li>
+                    <a href="/src/analytics.html">Analytics</a>
+                   </li>
+    
+               </ul> 
+            </nav>
+           
+          </div>
+    
+        
+            
+            <canvas id="myChart"></canvas>
+    
+          
+    </div>
+
+   
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+        const ctx = document.getElementById('myChart');
+    
+        function retriveLocalData(){
+            taskList = JSON.parse(localStorage.getItem('taskDetails')) || [];
+            console.log(taskList);
+        }
+        
+        retriveLocalData();
+        
+        let today = new Date();
+
+    
+let startDate = new Date(today);
+startDate.setDate(startDate.getDate() - 7); 
+startDate.setHours(0, 0, 0, 0); // 
+
+let endDate = new Date(today);
+endDate.setDate(endDate.getDate() - 1); 
+endDate.setHours(23, 59, 59, 999); 
+console.log(startDate,endDate);
+
+let filteredLogs = taskList.filter(log => {
+    let logDate = new Date(log.startTime);
+    return logDate >= startDate && logDate <= endDate;
+});
+console.log(filteredLogs);
+let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let dailyTotals = [0, 0, 0, 0, 0, 0, 0]; 
+
+
+filteredLogs.forEach(log => {
+    let logDate = new Date(log.startTime);
+    let dayIndex = logDate.getDay();
+    let startTime = new Date(log.startTime);
+    let stopTime = new Date(log.stopTime);
+    let timeDiffMs = stopTime - startTime;
+
+
+    dailyTotals[dayIndex] += timeDiffMs;
+});
+
+
+let dailyHours = dailyTotals.map(total => total / (1000 * 60 * 60));
+
+
+let pastWeekChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: days,
+        datasets: [{
+            label: 'Time Spent (hours)',
+            data: dailyHours,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Hours'
+                }
+            }
+        }
+    }
+});
+
+console.log(taskList);
+
+console.log(filteredLogs);
+       
+      </script>
+      
+
+
+
+    
+</body>
+</html>

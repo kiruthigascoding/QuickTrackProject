@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your JavaScript Playground</title>
+    <link rel="stylesheet" href="css/style.css" />
+   
+  </head>
+  <body>
+    <div class="main">
+       <div class="nav">
+          <nav>
+             <div class="logo">
+               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7hbeWe8cNEcEzyrBtyMdT5PnKUVWzd2VGQ&s" alt="logo">
+               <div class="title">
+                <h1>QuickTrack</h1>
+               </div>
+             </div>
+             <ul>
+                 <li class ="active">
+                      <a href="/src/index.html">Track</a>
+                 </li>
+                 <li>
+                  <a href="/src/analytics.html">Analytics</a>
+                 </li>
+
+             </ul> 
+          </nav>
+         
+        </div>       
+       <div class="task-start">
+            
+             <div id = "timer-mode" class="mode active">
+                 <input type="text" id="task" placeholder ="What r u working on?" >
+                 
+                 <span id="startClock"></span>
+                
+                <button id="startButton">Start</button>
+           
+             </div>
+            
+            <div id="manual-mode" class="mode">
+                <input type="text" id="task1" placeholder ="What r u working on?" >
+                <input type="datetime-local" id="manualStartDateTime">
+                <span id="display">----</span>
+                <input type="datetime-local" id="manualStopDateTime">
+                <button id= "add">Add</button>
+            </div>
+
+
+             
+            <div class="start-img">
+              <img id="timer-btn"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf-T9hl5wmXd_paWo4ffASj1q2pg8koDbz3w&s" alt="click-mode">
+              <img id="manual-btn"  src="https://png.pngtree.com/element_our/png/20181226/pencil-line-black-icon-png_281626.jpg" alt="edit-mode">
+            </div>
+
+       </div>
+
+        <div class="task-stop">
+            <span id="task-name"  ></span>
+            <div  class="clockDisplay">
+              <span id="endClock"></span>
+           </div>
+          
+            <button id="stopButton">Stop</button>
+        </div>
+        <div id ="past-task">
+        <table id="table">
+            <thead>
+              <tr>
+                  <th>Index</th>
+                  <th>Task</th>
+                  <th>StartTime</th>
+                  <th>StopTime</th>
+                  <th>TimeSpend</th>
+                  <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="TaskTableBody">
+
+            </tbody>
+
+        </table>     
+        
+        </div>
+       
+    </div>
+     
+    <script type="module" src="js/index.js"></script>
+    
+  </body>
+</html>
